@@ -6,14 +6,32 @@ class TransactionRepository:
         self.db = db
 
     def add_transaction(self, transaction: Transaction):
-        transaction_model = TransactionModel(from_account_id=transaction.from_account_id, to_account_id=transaction.to_account_id, amount=transaction.amount)
+        # Asegúrate de que este bloque esté indentado
+        transaction_model = TransactionModel(
+            account_id=transaction.account_id,
+            type=transaction.type,
+            amount=transaction.amount,
+            date=transaction.date
+        )
         self.db.session.add(transaction_model)
         self.db.session.commit()
         self.db.session.refresh(transaction_model)
-        return Transaction(id=transaction_model.id, from_account_id=transaction_model.from_account_id, to_account_id=transaction_model.to_account_id, amount=transaction_model.amount)
-    
+        return Transaction(
+            id=transaction_model.id,
+            account_id=transaction_model.account_id,
+            type=transaction_model.type,
+            amount=transaction_model.amount,
+            date=transaction_model.date
+        )
+
     def get_transactions_by_account_id(self, account_id: int):
         transactions = self.db.session.query(TransactionModel).filter(
-            (TransactionModel.from_account_id == account_id) | (TransactionModel.to_account_id == account_id)
+            TransactionModel.account_id == account_id
         ).all()
-        return [Transaction(id=transaction.id, from_account_id=transaction.from_account_id, to_account_id=transaction.to_account_id, amount=transaction.amount) for transaction in transactions]
+        return [Transaction(
+            id=transaction.id,
+            account_id=transaction.account_id,
+            type=transaction.type,
+            amount=transaction.amount,
+            date=transaction.date
+        ) for transaction in transactions]

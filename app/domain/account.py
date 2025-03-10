@@ -1,6 +1,9 @@
 class Account:
-    def __init__(self, id, user_id, account_number, balance):
+    def __init__(self, id, number, placeholder, cvc_encrypted, due_date, user_id, balance):
         self.id = id
-        self.user_id = user_id  # Relación con el microservicio de usuarios
-        self.account_number = account_number
+        self.number = number
+        self.placeholder = placeholder
+        self.cvc_encrypted = cvc_encrypted
+        self.due_date = due_date
+        self.user_id = user_id
         self.balance = balance

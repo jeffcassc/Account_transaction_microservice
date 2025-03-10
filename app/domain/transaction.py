@@ -1,6 +1,7 @@
 class Transaction:
-    def __init__(self, id, from_account_id, to_account_id, amount):
+    def __init__(self, id, account_id, type, amount, date):
         self.id = id
-        self.from_account_id = from_account_id
-        self.to_account_id = to_account_id
+        self.account_id = account_id
+        self.type = type
         self.amount = amount
+        self.date = date
