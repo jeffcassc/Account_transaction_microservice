@@ -8,4 +8,3 @@ class Account:
         self.user_id = user_id
         self.balance = balance
 
-#prueba
